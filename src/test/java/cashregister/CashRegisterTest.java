@@ -3,15 +3,20 @@ package cashregister;
 
 import org.junit.jupiter.api.Test;
 
-public class CashRegisterTest {
-
-
+class CashRegisterTest {
     @Test
-    public void should_print_the_real_purchase() {
-        //initialize CashRegister and fake Printer
+    void should_print_the_real_purchase() {
+        Item[] items = new Item[]{
+                new Item("Item 1", 30),
+                new Item("Item 2", 40),
+        };
+        Purchase purchase = new Purchase(items);
 
+        MockPrinter printer = new MockPrinter();
+        CashRegister cashRegister = new CashRegister(printer);
         cashRegister.process(purchase);
 
-        //verify that printer was called
+        printer.verifyThatPrintWasCalledWith("Item 1\t30.0\n" +
+                "Item 2\t40.0\n");
     }
 }
