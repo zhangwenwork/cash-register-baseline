@@ -19,4 +19,16 @@ class CashRegisterTest {
         printer.verifyThatPrintWasCalledWith("Item 1\t30.0\n" +
                 "Item 2\t40.0\n");
     }
+
+    @Test
+    void should_print_this_with_stub_purchase() {
+        Purchase purchase = new StubPurchase("Purchase as string");
+        MockPrinter printer = new MockPrinter();
+
+        CashRegister cashRegister = new CashRegister(printer);
+
+        cashRegister.process(purchase);
+
+        printer.verifyThatPrintWasCalledWith("Purchase as string");
+    }
 }
